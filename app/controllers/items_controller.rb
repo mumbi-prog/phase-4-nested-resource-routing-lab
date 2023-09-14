@@ -15,7 +15,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_record_not_found
 
   def show
     item = Item.find_by(id: params[:id])
-    render json: item, status: :ok
+    render json: item, include: :user, status: :ok
   end
 
   def create
@@ -25,7 +25,6 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_record_not_found
     else
       item = Item.create(item_params)
     end
-
     render json: item, status: :created
   end
 
